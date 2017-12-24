@@ -1,0 +1,203 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>HyperDatum</title>
+  <meta name="description" content="Dashboard">
+  <meta name="author" content="SitePoint">
+  
+  <link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+  <script src="static/js/canvasjs.min.js"></script>  
+  <script src="static/js/jquery.canvasjs.min.js"></script>
+  
+
+  <script
+  src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
+  integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
+  crossorigin="anonymous"></script>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+
+  <link rel="stylesheet" href="static/css/main.css" />
+  <link rel="stylesheet" href="static/css/gridstack.css" />
+  <script src="static/js/gridstack.js"></script>
+  <script src="static/js/gridstack.jQueryUI.js"></script>
+  <script src="static/js/couchdbquery.js"></script>
+
+
+  <script>
+        window.onload = function() {
+        $.ajax({ 
+	        type: "POST",
+	        url: "/api/getAllTransactions",
+	        data: JSONString,
+	        contentType: "application/json; charset=utf-8",
+	        success: function(data){
+	        		console.log(data);
+	        	}
+		});
+		
+        
+        <!-->
+        var categoryDist = getDonationCategoryBreakdown();
+        var numDonations = getAllDonations().length;
+        console.log("");
+        
+        var pieChart = new CanvasJS.Chart("pieChartContainer", {
+            animationEnabled: true,
+            data: [{
+                type: "pie",
+                startAngle: 240,
+                yValueFormatString: "##0.00\"%\"",
+                indexLabel: "{label} {y}",
+                //we have to put method to query data here
+    				
+                dataPoints: [
+                    {y: categoryDist["MEDICINE"], label: "MEDICINE"},
+                    {y: 27.31, label: "FOOD"},
+                    {y: 17.06, label: "INFRASTRUCTURE"},
+                    {y: 14.91, label: "EMERGENCY"},
+                    {y: 1.26, label: "OTHER"}
+                ]
+            }]
+        });
+
+        var barChart = new CanvasJS.Chart("barChartContainer", {
+        animationEnabled: true,
+        theme: "light2", // "light1", "light2", "dark1", "dark2"
+        axisY: {
+            title: "Reserves(MMbbl)"
+        },
+        data: [{        
+                type: "column",  
+                //we have to put method to query data here
+                dataPoints: [      
+                    { y: 300878, label: "UNICEF" },
+                    { y: 266455,  label: "Oxfam" },
+                    { y: 169709,  label: "MedShare" },
+                    { y: 158400,  label: "Goal" },
+                    { y: 142503,  label: "ActionAid" },
+                    { y: 101500, label: "MSF" },
+                    { y: 97800,  label: "HFH" },
+                    { y: 80000,  label: "Others" }
+                ]
+            }]
+        });
+
+
+        var lineChart = new CanvasJS.Chart("lineChartContainer", {
+        animationEnabled: true,
+        theme: "light2",
+        axisY:{
+            includeZero: false
+        },
+        data: [{        
+                type: "line",       
+                dataPoints: [
+                    { y: 450 },
+                    { y: 414 },
+                    { y: 520 },
+                    { y: 0 },
+                    { y: 450 },
+                    { y: 500 },
+                    { y: 480 },
+                    { y: 480 },
+                    { y: 410 },
+                    { y: 500 },
+                    { y: 480 },
+                    { y: 510 }
+                ]
+            }]
+        });
+
+        lineChart.render();
+        barChart.render();
+        pieChart.render();
+        -->
+        }
+        </script>
+
+</head>
+
+<body style="background-color:lightgray">
+
+    <h2 style="width:700px; margin: auto; margin-top:20px; margin-bottom:20px;">HyperDatum: Donation Analysis</h2>
+
+    <div style="width: 1200px; margin: 0 auto;" class="grid-stack">
+
+        <div class="grid-stack-item"
+            data-gs-x="0" data-gs-y="0"
+            data-gs-width="3" data-gs-height="3">
+                <div class="grid-stack-item-content">
+                    <div class="mygriditem demo-card-square mdl-card mdl-shadow--2dp">
+
+                        <p style="margin: 0 auto; margin-top:4px; margin-bottom:4px;"><b>Donation By Group</b></p>
+
+                        <div id="pieChartContainer" style="height: 370px; width: 100%;"></div>
+
+                    </div>
+                </div>
+        </div>
+
+        <div class="grid-stack-item"
+        data-gs-x="3" data-gs-y="0"
+        data-gs-width="3" data-gs-height="3">
+            <div class="grid-stack-item-content">
+                    <div class="mygriditem demo-card-square mdl-card mdl-shadow--2dp">
+
+                            <p style="margin: 0 auto; margin-top:4px; margin-bottom:4px;"><b>Top 5 donors</b></p>
+
+                            <div id="barChartContainer" style="height: 370px; width: 100%;"></div>
+                    </div>
+            </div>
+        </div>
+
+        <div class="grid-stack-item"
+        data-gs-x="0" data-gs-y="4"
+        data-gs-width="6" data-gs-height="3">
+            <div class="grid-stack-item-content">
+                    <div class="mygriditem demo-card-square mdl-card mdl-shadow--2dp">
+
+                            <p style="margin: 0 auto; margin-top:4px; margin-bottom:4px;"><b>Spoilage rates this week</b></p>
+                            
+                            <div id="lineChartContainer" style="height: 370px; width: 100%;"></div>
+                    </div>
+            </div>
+        </div>
+
+        <div class="grid-stack-item"
+        data-gs-x=6 data-gs-y="0"
+        data-gs-width="3" data-gs-height="6">
+            <div class="grid-stack-item-content">
+                    <div class="mygriditem demo-card-square mdl-card mdl-shadow--2dp"></div>
+            </div>
+        </div>
+
+
+        
+    </div>
+    
+    <script type="text/javascript">
+    $(function () {
+        var options = {
+            cellHeight: 80,
+            verticalMargin: 10
+        };
+        $('.grid-stack').gridstack(options);
+    });
+    </script>
+
+
+</body>
+</html>
